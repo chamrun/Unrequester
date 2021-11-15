@@ -2,9 +2,11 @@ import configparser
 from time import sleep
 
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+
 
 # based on your internet speed, you can change time unit
-TIME_UNIT = 2
+TIME_UNIT = 1
 
 if __name__ == '__main__':
 
@@ -55,10 +57,11 @@ if __name__ == '__main__':
     for i in range(2, 30):
         print(str(i) + "th click on view more button...")
         view_more_xpath = '//*[@id="react-root"]/section/main/div/article/main/button'
-        view_more_button = driver.find_element_by_xpath(view_more_xpath)
+
         try:
+            view_more_button = driver.find_element_by_xpath(view_more_xpath)
             view_more_button.click()
-        except NameError:
+        except NoSuchElementException:
             print("No more requests.")
             break
         sleep(TIME_UNIT)
