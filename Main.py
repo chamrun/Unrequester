@@ -23,6 +23,9 @@ if __name__ == '__main__':
     print("Opening instagram...")
     login_url = 'https://www.instagram.com/accounts/login/'
     driver.get(login_url)
+    while driver.current_url is not login_url:
+        print("Driver is still on: " + driver.current_url)
+        sleep(TIME_UNIT)
 
     print("Writing username...")
     username_field_xpath = '//*[@id="loginForm"]/div/div[1]/div/label/input'
@@ -44,6 +47,8 @@ if __name__ == '__main__':
     print("Opening follow requests...")
     follow_requests_url = 'https://www.instagram.com/accounts/access_tool/current_follow_requests'
     driver.get(follow_requests_url)
+    while driver.current_url is not follow_requests_url:
+        sleep(TIME_UNIT)
 
     sleep(TIME_UNIT * 2)
 
@@ -64,6 +69,7 @@ if __name__ == '__main__':
         except NoSuchElementException:
             print("No more requests.")
             break
+
         sleep(TIME_UNIT)
 
     requested_usernames_class_name = '-utLf'
@@ -79,6 +85,9 @@ if __name__ == '__main__':
         insta_page = 'https://www.instagram.com/' + username
         driver.get(insta_page)
         sleep(TIME_UNIT * 2)
+
+        while driver.current_url is not follow_requests_url:
+            sleep(TIME_UNIT)
 
         request_button_xpath = '//*[@id="react-root"]/section/main/div/header/section/div[1]/div[1]/div/div/button'
         request_button = driver.find_element_by_xpath(request_button_xpath)
