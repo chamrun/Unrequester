@@ -8,7 +8,6 @@ from selenium.common.exceptions import NoSuchElementException
 TIME_UNIT = 1
 
 if __name__ == '__main__':
-
     config = configparser.ConfigParser()
     config.read('login_data.ini')
 
@@ -66,7 +65,7 @@ if __name__ == '__main__':
 
     sleep(TIME_UNIT)
 
-    for i in range(2, 30):
+    for i in range(2, 50):
         print(str(i) + "th click on view more button...")
         view_more_xpath = '//*[@id="react-root"]/section/main/div/article/main/button'
 
