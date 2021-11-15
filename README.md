@@ -25,5 +25,8 @@ pip install selenium
 
 5. Paste driver in your project directory.
  
-6. Run [Main.py](https://github.com/ChamRun/Unrequester/blob/main/Main.py).
+6. Run [Main.py](https://github.com/ChamRun/Unrequester/blob/main/Main.py).<br><br>
 
+
+You can learn how to get the XPath [from here](https://stackoverflow.com/a/42194160/14761615).
+Thank to [nabegheha](https://nabegheha.com/).
