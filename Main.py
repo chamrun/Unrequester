@@ -23,8 +23,11 @@ if __name__ == '__main__':
     print("Opening instagram...")
     login_url = 'https://www.instagram.com/accounts/login/'
     driver.get(login_url)
-    while driver.current_url is not login_url:
+    sleep(TIME_UNIT)
+
+    while 'insta' not in driver.current_url:
         print("Driver is still on: " + driver.current_url)
+        driver.get(login_url)
         sleep(TIME_UNIT)
 
     print("Writing username...")
@@ -47,10 +50,14 @@ if __name__ == '__main__':
     print("Opening follow requests...")
     follow_requests_url = 'https://www.instagram.com/accounts/access_tool/current_follow_requests'
     driver.get(follow_requests_url)
-    while driver.current_url is not follow_requests_url:
-        sleep(TIME_UNIT)
 
     sleep(TIME_UNIT * 2)
+
+    while 'follow' not in driver.current_url:
+        print("Driver is still on: " + driver.current_url)
+        driver.get(follow_requests_url)
+        sleep(TIME_UNIT)
+
 
     print("Clicking on view more button...")
     view_more_xpath = '/html/body/div[1]/section/main/div/article/main/button'
