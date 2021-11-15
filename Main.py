@@ -4,7 +4,6 @@ from time import sleep
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-
 # based on your internet speed, you can change time unit
 TIME_UNIT = 1
 
@@ -17,8 +16,9 @@ if __name__ == '__main__':
     my_username = config['instagram']['username']
     my_password = config['instagram']['password']
 
-    # driver = webdriver.Firefox()
+    # Choose your favorite browser :)
     driver = webdriver.Chrome()
+    # driver = webdriver.Firefox()
 
     print("Opening instagram...")
     login_url = 'https://www.instagram.com/accounts/login/'
