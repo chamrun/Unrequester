@@ -28,7 +28,7 @@ if __name__ == '__main__':
     while 'insta' not in driver.current_url:
         print("Driver is still on: " + driver.current_url)
         driver.get(login_url)
-        sleep(TIME_UNIT)
+        sleep(TIME_UNIT * 2)
 
     print("Writing username...")
     username_field_xpath = '//*[@id="loginForm"]/div/div[1]/div/label/input'
@@ -45,19 +45,19 @@ if __name__ == '__main__':
     login_button = driver.find_element_by_xpath(login_button_xpath)
     login_button.click()
 
-    sleep(TIME_UNIT * 2)
+    while 'login' in driver.current_url:
+        sleep(TIME_UNIT)
 
     print("Opening follow requests...")
     follow_requests_url = 'https://www.instagram.com/accounts/access_tool/current_follow_requests'
     driver.get(follow_requests_url)
 
-    sleep(TIME_UNIT * 2)
+    sleep(TIME_UNIT)
 
     while 'follow' not in driver.current_url:
         print("Driver is still on: " + driver.current_url)
         driver.get(follow_requests_url)
-        sleep(TIME_UNIT)
-
+        sleep(TIME_UNIT * 2)
 
     print("Clicking on view more button...")
     view_more_xpath = '/html/body/div[1]/section/main/div/article/main/button'
@@ -88,13 +88,15 @@ if __name__ == '__main__':
         requested_usernames.append(username)
 
     for username in requested_usernames:
-        print("unrequesting " + username + "...")
+        print("unrequesting " + username + " ...")
         insta_page = 'https://www.instagram.com/' + username
         driver.get(insta_page)
-        sleep(TIME_UNIT * 2)
+        sleep(TIME_UNIT)
 
-        while driver.current_url is not follow_requests_url:
-            sleep(TIME_UNIT)
+        while username not in driver.current_url:
+            print("Trying again to load " + insta_page)
+            driver.get(insta_page)
+            sleep(TIME_UNIT * 2)
 
         request_button_xpath = '//*[@id="react-root"]/section/main/div/header/section/div[1]/div[1]/div/div/button'
         request_button = driver.find_element_by_xpath(request_button_xpath)
