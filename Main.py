@@ -75,6 +75,7 @@ if __name__ == '__main__':
         requested_usernames.append(username)
 
     for username in requested_usernames:
+        print("unrequesting " + username + "...")
         insta_page = 'https://www.instagram.com/' + username
         driver.get(insta_page)
         sleep(TIME_UNIT * 2)
@@ -82,6 +83,10 @@ if __name__ == '__main__':
         request_button_xpath = '//*[@id="react-root"]/section/main/div/header/section/div[1]/div[1]/div/div/button'
         request_button = driver.find_element_by_xpath(request_button_xpath)
         request_button.click()
+        unfollow_button_xpath = '/html/body/div[5]/div/div/div/div[3]/button[1]'
+        unfollow_button = driver.find_element_by_xpath(unfollow_button_xpath)
+        unfollow_button.click()
+        print(username + " was unrequested successfully!")
         sleep(TIME_UNIT)
 
     print('Done :)')
