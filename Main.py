@@ -10,8 +10,7 @@ TIME_UNIT = 1
 if __name__ == '__main__':
 
     config = configparser.ConfigParser()
-    config.read('LoginData.ini')
-    # config.read('login_data.ini')
+    config.read('login_data.ini')
 
     my_username = config['instagram']['username']
     my_password = config['instagram']['password']
@@ -19,6 +18,7 @@ if __name__ == '__main__':
     # Choose your favorite browser :)
     driver = webdriver.Chrome()
     # driver = webdriver.Firefox()
+    # driver = webdriver.Opera()
 
     print("Opening instagram...")
     login_url = 'https://www.instagram.com/accounts/login/'
