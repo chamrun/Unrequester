@@ -9,47 +9,76 @@ TIME_UNIT = 2
 if __name__ == '__main__':
 
     config = configparser.ConfigParser()
-    config.read('login_data.ini')
+    config.read('LoginData.ini')
+    # config.read('login_data.ini')
 
     my_username = config['instagram']['username']
     my_password = config['instagram']['password']
 
     # driver = webdriver.Firefox()
-
     driver = webdriver.Chrome()
+
+    print("Opening instagram...")
     login_url = 'https://www.instagram.com/accounts/login/'
     driver.get(login_url)
 
+    print("Writing username...")
     username_field_xpath = '//*[@id="loginForm"]/div/div[1]/div/label/input'
     username_field = driver.find_element_by_xpath(username_field_xpath)
     username_field.send_keys(my_username)
 
+    print("Writing password...")
     password_field_xpath = '//*[@id="loginForm"]/div/div[2]/div/label/input'
     password_field = driver.find_element_by_xpath(password_field_xpath)
     password_field.send_keys(my_password)
 
+    print("Clicking on login button...")
     login_button_xpath = '//*[@id="loginForm"]/div/div[3]'
     login_button = driver.find_element_by_xpath(login_button_xpath)
     login_button.click()
 
     sleep(TIME_UNIT * 2)
 
+    print("Opening follow requests...")
     follow_requests_url = 'https://www.instagram.com/accounts/access_tool/current_follow_requests'
     driver.get(follow_requests_url)
 
     sleep(TIME_UNIT * 2)
 
+    print("Clicking on view more button...")
     view_more_xpath = '/html/body/div[1]/section/main/div/article/main/button'
     view_more_button = driver.find_element_by_xpath(view_more_xpath)
     view_more_button.click()
 
     sleep(TIME_UNIT)
 
-    for i in range(30):
+    for i in range(2, 30):
         print(str(i) + "th click on view more button...")
         view_more_xpath = '//*[@id="react-root"]/section/main/div/article/main/button'
         view_more_button = driver.find_element_by_xpath(view_more_xpath)
-        view_more_button.click()
+        try:
+            view_more_button.click()
+        except NameError:
+            print("No more requests.")
+            break
+        sleep(TIME_UNIT)
 
+    requested_usernames_class_name = '-utLf'
+    requested_usernames_elements = driver.find_elements_by_class_name(requested_usernames_class_name)
 
+    requested_usernames = []
+    for requested_username_element in requested_usernames_elements:
+        username = requested_username_element.text
+        requested_usernames.append(username)
 
+    for username in requested_usernames:
+        insta_page = 'https://www.instagram.com/' + username
+        driver.get(insta_page)
+        sleep(TIME_UNIT * 2)
+
+        request_button_xpath = '//*[@id="react-root"]/section/main/div/header/section/div[1]/div[1]/div/div/button'
+        request_button = driver.find_element_by_xpath(request_button_xpath)
+        request_button.click()
+        sleep(TIME_UNIT)
+
+    print('Done :)')

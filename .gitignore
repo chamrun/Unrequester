@@ -2,4 +2,4 @@
 *.download
 *.json
 venv/
-login_data.ini
+LoginData.ini
